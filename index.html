@@ -1,0 +1,1022 @@
+!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Hanonty ❤️</title>
+
+<style>
+
+body{
+margin:0;
+font-family:Arial;
+overflow:hidden;
+background:black;
+color:white;
+}
+
+/* 🎥 الخلفية */
+#bg-video{
+position:fixed;
+width:100%;
+height:100%;
+object-fit:cover;
+z-index:-2;
+filter:brightness(0.5);
+}
+
+.overlay{
+position:fixed;
+width:100%;
+height:100%;
+background:rgba(0,0,0,0.45);
+z-index:-1;
+}
+
+/* الصفحات */
+.page{
+display:none;
+height:100vh;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+text-align:center;
+padding:20px;
+box-sizing:border-box;
+}
+
+.active{
+display:flex;
+}
+
+/* أزرار */
+button{
+padding:14px 24px;
+border:none;
+border-radius:15px;
+background:linear-gradient(45deg,#ff1744,#ff4d88);
+color:white;
+font-size:18px;
+cursor:pointer;
+margin-top:10px;
+}
+
+/* 🔐 القفل */
+#lock{
+background:black;
+z-index:999;
+}
+
+input{
+padding:12px;
+border:none;
+border-radius:12px;
+text-align:center;
+width:240px;
+font-size:18px;
+}
+
+.fade-out{
+animation:fadeOut 2s forwards;
+}
+
+@keyframes fadeOut{
+to{
+opacity:0;
+visibility:hidden;
+}
+}
+
+/* 📖 الكتاب */
+.book{
+width:420px;
+height:520px;
+perspective:1500px;
+position:relative;
+}
+
+.page-book{
+width:100%;
+height:100%;
+position:absolute;
+transform-origin:left;
+transition:transform 1s;
+border-radius:15px;
+overflow:hidden;
+backface-visibility:hidden;
+}
+
+.page-book img{
+width:100%;
+height:100%;
+object-fit:cover;
+}
+
+.flipped{
+transform:rotateY(-180deg);
+}
+
+/* ❤️ الغلاف */
+.cover{
+background:linear-gradient(135deg,#ff1744,#ff4d88);
+display:flex;
+flex-direction:column;
+justify-content:center;
+align-items:center;
+}
+
+.heart{
+font-size:70px;
+animation:beat 1s infinite;
+}
+
+@keyframes beat{
+50%{
+transform:scale(1.2);
+}
+}
+
+/* 🎆 */
+.firework{
+position:fixed;
+width:6px;
+height:6px;
+background:yellow;
+border-radius:50%;
+animation:boom 1s forwards;
+}
+
+@keyframes boom{
+to{
+transform:scale(25);
+opacity:0;
+}
+}
+
+/* ✨ النص */
+#typedText{
+font-size:20px;
+line-height:2;
+max-width:900px;
+}
+
+/* ================================= */
+/* 🎭 INTRO */
+/* ================================= */
+
+#intro{
+position:fixed;
+width:100%;
+height:100vh;
+background:black;
+z-index:5000;
+overflow:hidden;
+}
+
+/* الستارة */
+
+#curtainScene{
+position:absolute;
+width:100%;
+height:100%;
+display:flex;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+background:black;
+}
+
+.curtain{
+position:absolute;
+top:0;
+width:50%;
+height:100%;
+background:
+linear-gradient(
+to right,
+#2a0000,
+#5c0000,
+#7d0000,
+#5c0000,
+#2a0000
+);
+transition:2.5s ease;
+z-index:2;
+}
+
+.left{
+left:0;
+}
+
+.right{
+right:0;
+}
+
+.open-left{
+transform:translateX(-100%);
+}
+
+.open-right{
+transform:translateX(100%);
+}
+
+#openBtn{
+z-index:5;
+width:140px;
+height:140px;
+border-radius:50%;
+font-size:30px;
+background:#d4003f;
+box-shadow:0 0 40px #ff1744;
+border:4px solid rgba(255,255,255,0.3);
+}
+
+/* 🎰 الماكينة */
+
+#slotScene{
+display:none;
+position:absolute;
+width:100%;
+height:100%;
+background:
+radial-gradient(circle at top,#ffe4ee,#ffbfd3,#ff8fb1);
+flex-direction:column;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+}
+
+.saveText{
+font-size:48px;
+margin-bottom:35px;
+color:#8a003c;
+text-shadow:
+0 0 10px rgba(255,255,255,0.8),
+0 0 20px #ff4d88;
+animation:glowText 2s infinite alternate;
+}
+
+@keyframes glowText{
+from{
+transform:scale(1);
+}
+to{
+transform:scale(1.04);
+}
+}
+
+.slot-machine{
+width:360px;
+height:520px;
+background:
+linear-gradient(
+145deg,
+#ffb3c7,
+#ff5f98,
+#d60052
+);
+border-radius:40px;
+position:relative;
+box-shadow:
+0 0 40px rgba(255,20,90,0.5),
+0 0 90px rgba(255,20,90,0.4),
+inset 0 0 25px rgba(255,255,255,0.35);
+display:flex;
+justify-content:center;
+align-items:center;
+flex-direction:column;
+border:6px solid rgba(255,255,255,0.3);
+overflow:visible;
+}
+
+.slot-machine::before{
+content:"";
+position:absolute;
+top:-120px;
+left:-80px;
+width:220px;
+height:700px;
+background:rgba(255,255,255,0.15);
+transform:rotate(20deg);
+}
+
+/* شاشة التاريخ */
+
+.slot-screen{
+width:260px;
+height:120px;
+background:
+linear-gradient(to bottom,#ffffff,#ffd9e6);
+border-radius:25px;
+display:flex;
+justify-content:center;
+align-items:center;
+font-size:30px;
+font-weight:bold;
+color:#7a0038;
+box-shadow:
+inset 0 0 20px rgba(0,0,0,0.15),
+0 0 20px rgba(255,255,255,0.5);
+border:5px solid #fff;
+letter-spacing:2px;
+z-index:3;
+}
+
+/* لمبات */
+
+.light{
+position:absolute;
+width:18px;
+height:18px;
+background:#fff4a3;
+border-radius:50%;
+box-shadow:0 0 15px #fff4a3;
+animation:blink 1s infinite alternate;
+z-index:5;
+}
+
+@keyframes blink{
+from{
+opacity:0.5;
+}
+to{
+opacity:1;
+}
+}
+
+/* 🎰 الدراع */
+
+.handle-box{
+position:absolute;
+right:-70px;
+top:140px;
+width:80px;
+height:220px;
+z-index:20;
+}
+
+.handle{
+width:18px;
+height:130px;
+background:
+linear-gradient(to bottom,#ffe46b,#ffbb00);
+border-radius:30px;
+position:absolute;
+right:25px;
+top:0;
+transform-origin:top center;
+cursor:pointer;
+box-shadow:
+0 0 15px rgba(255,200,0,0.8);
+}
+
+.handle::after{
+content:"";
+position:absolute;
+bottom:-28px;
+left:50%;
+transform:translateX(-50%);
+width:55px;
+height:55px;
+background:#ff1744;
+border-radius:50%;
+box-shadow:
+0 0 20px #ff1744,
+0 0 40px #ff1744;
+}
+
+.pull{
+animation:pullHandle 1s forwards;
+}
+
+@keyframes pullHandle{
+0%{
+transform:rotate(0deg);
+}
+50%{
+transform:rotate(45deg);
+}
+100%{
+transform:rotate(0deg);
+}
+}
+
+/* 🔢 العداد */
+
+#countScene{
+display:none;
+position:absolute;
+width:100%;
+height:100%;
+background:black;
+justify-content:center;
+align-items:center;
+overflow:hidden;
+flex-direction:column;
+}
+
+#bigCount{
+font-size:200px;
+font-weight:bold;
+color:#ff2d75;
+text-shadow:0 0 40px #ff2d75;
+z-index:5;
+transition:0.3s;
+}
+
+.rain{
+position:absolute;
+top:-100px;
+color:#ff2d75;
+font-size:22px;
+font-weight:bold;
+animation:rainFall linear forwards;
+opacity:0.8;
+}
+
+@keyframes rainFall{
+to{
+transform:translateY(120vh);
+opacity:0;
+}
+}
+
+</style>
+</head>
+
+<body>
+
+<!-- 🎭 INTRO -->
+
+<div id="intro">
+
+<!-- الستارة -->
+
+<div id="curtainScene">
+
+<div class="curtain left"></div>
+<div class="curtain right"></div>
+
+<button id="openBtn" onclick="openCurtain()">
+OPEN ❤️
+</button>
+
+</div>
+
+<!-- 🎰 الماكينة -->
+
+<div id="slotScene">
+
+<h1 class="saveText">
+Happy Birthday Hanonty ❤️
+</h1>
+
+<div class="slot-machine">
+
+<!-- 💡 لمبات -->
+
+<div class="light" style="top:18px;left:20px;"></div>
+<div class="light" style="top:18px;right:20px;"></div>
+
+<div class="light" style="top:90px;left:12px;"></div>
+<div class="light" style="top:90px;right:12px;"></div>
+
+<div class="light" style="bottom:90px;left:12px;"></div>
+<div class="light" style="bottom:90px;right:12px;"></div>
+
+<div class="light" style="bottom:18px;left:20px;"></div>
+<div class="light" style="bottom:18px;right:20px;"></div>
+
+<div class="slot-screen" id="dateText">
+?????
+</div>
+
+<!-- 🎰 الدراع -->
+
+<div class="handle-box">
+<div class="handle" id="handle"></div>
+</div>
+
+</div>
+
+<p style="font-size:22px;">
+اسحبي الدراع 🎰
+</p>
+
+</div>
+
+<!-- 🔢 العداد -->
+
+<div id="countScene">
+
+<div id="bigCount">3</div>
+
+<div id="rainContainer"></div>
+
+</div>
+
+</div>
+
+<!-- 🔐 القفل -->
+
+<div class="page" id="lock">
+
+<h2>
+هااا سمعيني 😉😂
+</h2>
+
+<input id="pass" type="password" placeholder="ادخلي كلمة السر">
+
+<br>
+
+<button onclick="checkPass()">
+دخول ❤️
+</button>
+
+<p id="msgLock"></p>
+
+</div>
+
+<!-- 🎵 الصوت -->
+
+<audio id="bgMusic" loop preload="auto">
+<source src="song.mp3" type="audio/mpeg">
+</audio>
+
+<audio id="flipSound" preload="auto">
+<source src="flip.mp3" type="audio/mpeg">
+</audio>
+
+<!-- 🎥 الخلفية -->
+
+<video autoplay muted loop id="bg-video">
+<source src="bg.mp4">
+</video>
+
+<div class="overlay"></div>
+
+<!-- 🎬 الصفحة 1 -->
+
+<div class="page" id="p1">
+
+<h2>
+كل سنة وإنتي معايا يا حنوتي ❤️
+</h2>
+
+<h3 id="countdown"></h3>
+
+<button onclick="startAudio()">
+🔊 تشغيل الموسيقى
+</button>
+
+<button onclick="go(2)">
+يلا على اللي بعده
+</button>
+
+</div>
+
+<!-- 🎬 الصفحة 2 -->
+
+<div class="page" id="p2">
+
+<div onclick="openMsg()"
+style="
+cursor:pointer;
+background:#ff1744;
+padding:20px;
+border-radius:15px;
+">
+اضغطي هنا 💌
+</div>
+
+<p id="msg" style="display:none; margin-top:20px;">
+
+بموت فيكي يا حنونت قلبي ❤️
+<br>
+وكل يوم بحبك أكتر 💫
+
+</p>
+
+<button onclick="go(3)">
+اللي بعده ❤️
+</button>
+
+</div>
+
+<!-- 📖 الكتاب -->
+
+<div class="page" id="p3">
+
+<div class="book">
+
+<div class="page-book cover" id="page1" style="z-index:16;">
+
+<div class="heart">❤️</div>
+
+<p>Z & H</p>
+
+<p>
+بموت فيكي يا حنونت قلبي 💖
+</p>
+
+</div>
+
+<div class="page-book" style="z-index:14;"><img src="photo1.jpg"></div>
+<div class="page-book" style="z-index:13;"><img src="photo2.jpg"></div>
+<div class="page-book" style="z-index:12;"><img src="photo3.jpg"></div>
+<div class="page-book" style="z-index:11;"><img src="photo4.jpg"></div>
+<div class="page-book" style="z-index:10;"><img src="photo5.jpg"></div>
+<div class="page-book" style="z-index:9;"><img src="photo6.jpg"></div>
+<div class="page-book" style="z-index:8;"><img src="photo7.jpg"></div>
+<div class="page-book" style="z-index:7;"><img src="photo8.jpg"></div>
+<div class="page-book" style="z-index:6;"><img src="photo10.jpg"></div>
+<div class="page-book" style="z-index:5;"><img src="photo11.jpg"></div>
+<div class="page-book" style="z-index:4;"><img src="photo12.jpg"></div>
+<div class="page-book" style="z-index:3;"><img src="photo13.jpg"></div>
+<div class="page-book" style="z-index:2;"><img src="photo14.jpg"></div>
+<div class="page-book" style="z-index:1;"><img src="photo15.jpg"></div>
+</div>
+
+<button onclick="nextPage()">
+اقلب الصفحة 📖
+</button>
+
+<button onclick="finalPage()">
+النهاية 🎆
+</button>
+
+</div>
+
+<!-- 🎬 النهاية -->
+
+<div class="page" id="p4">
+
+<div style="
+max-width:90%;
+text-align:center;
+line-height:1.8;
+font-size:18px;
+padding:20px;
+">
+
+<h2>
+❤️ رسالة ليكي يا حنونتي ❤️
+</h2>
+
+<p id="typedText"></p>
+
+</div>
+
+</div>
+
+<script>
+
+/* 🔐 القفل */
+
+function checkPass(){
+
+let val=document.getElementById("pass").value;
+
+let msg=document.getElementById("msgLock");
+
+if(val==="بحبك يا وزتي"){
+
+msg.innerHTML="❤️ صح يا حنونتي...";
+
+setTimeout(()=>{
+
+document.getElementById("lock").classList.add("fade-out");
+
+setTimeout(()=>{
+
+document.getElementById("lock").style.display="none";
+
+document.getElementById("p1").classList.add("active");
+
+},2000);
+
+},1500);
+
+}else{
+
+msg.innerHTML="اتفو عليكي 😏";
+
+}
+
+}
+
+/* 🔊 تشغيل الموسيقى */
+
+let started=false;
+
+function startAudio(){
+
+if(started) return;
+
+let music=document.getElementById("bgMusic");
+
+music.volume=1;
+
+music.play().catch((e)=>{
+console.log(e);
+});
+
+started=true;
+
+}
+
+/* ⏳ العد التنازلي */
+
+function updateCountdown(){
+
+const target=new Date("2026-05-25T00:00:00").getTime();
+
+const now=new Date().getTime();
+
+const diff=target-now;
+
+const d=Math.floor(diff/(1000*60*60*24));
+
+const h=Math.floor((diff%(1000*60*60*24))/(1000*60*60));
+
+const m=Math.floor((diff%(1000*60*60))/(1000*60));
+
+const s=Math.floor((diff%(1000*60))/1000);
+
+document.getElementById("countdown").innerHTML=
+"⏳ باقي: "
++d+" يوم "
++h+" ساعة "
++m+" دقيقة "
++s+" ثانية ❤️";
+
+}
+
+setInterval(updateCountdown,1000);
+
+updateCountdown();
+
+/* 🎬 التنقل */
+
+function go(p){
+
+document.querySelectorAll(".page")
+.forEach(e=>e.classList.remove("active"));
+
+document.getElementById("p"+p)
+.classList.add("active");
+
+}
+
+/* 💌 الرسالة */
+
+function openMsg(){
+
+document.getElementById("msg")
+.style.display="block";
+
+}
+
+/* 📖 الكتاب */
+
+let current=0;
+
+function nextPage(){
+
+let pages=document.querySelectorAll(".page-book");
+
+if(current<pages.length){
+
+pages[current].classList.add("flipped");
+
+let flip=document.getElementById("flipSound");
+
+flip.currentTime=0;
+
+flip.play().catch(()=>{});
+
+current++;
+
+}
+
+}
+
+/* 🎆 النهاية */
+
+function finalPage(){
+
+go(4);
+
+const fullMessage=`
+هعهعهععععع حنونتيييي كفايا عليكي كدا بقا عايزه اي تانييي 😂😂 لا لا بس حلوه بحبك يا وزتي اللي ف الاول دي انا مبسوطط 😍😂 كل ما تكتبي الباسورد بيجيلي notfacion هيهيهيهيهيي كفايا قله ادب كفايا 😂😂 المهم كل سنه ونتي طيبه كل سنه ونتي حتي مني كل سنه ونتي معايااا عقبال مليون سنه ونتي معايا وبخير وفرحانه دايما يارب و سنتين تلاته اربعه ونتجوز واقولك كل سنه واحنا متجوزين هيهيهيهيي مش قولت كفايا قله ادب هيهيهي خلاص خلاص😂😂 ربنا يخليكي ليا يروحي وميحرمنيش منگ ابدا واتمني منك رد يعني لو مش هزعجك مره واحده بس مره واحده مش عايز حاجة تاني 😂😂 بجد بجد بموت فيكي من قلبي 😂♥️♥️♥️♥️♥️♥️💋🫂
+`;
+
+let el=document.getElementById("typedText");
+
+let i=0;
+
+function type(){
+
+if(i<fullMessage.length){
+
+el.innerHTML+=fullMessage[i];
+
+i++;
+
+setTimeout(type,40);
+
+}
+
+}
+
+type();
+
+for(let i=0;i<60;i++){
+
+const f=document.createElement("div");
+
+f.className="firework";
+
+f.style.left=Math.random()*100+"vw";
+
+f.style.top=Math.random()*100+"vh";
+
+document.body.appendChild(f);
+
+setTimeout(()=>f.remove(),1000);
+
+}
+
+}
+
+/* 🎭 الستارة */
+
+function openCurtain(){
+
+let music=document.getElementById("bgMusic");
+
+music.volume=1;
+
+music.play().catch((e)=>{
+console.log(e);
+});
+
+document.querySelector(".left")
+.classList.add("open-left");
+
+document.querySelector(".right")
+.classList.add("open-right");
+
+setTimeout(()=>{
+
+document.getElementById("curtainScene")
+.style.display="none";
+
+document.getElementById("slotScene")
+.style.display="flex";
+
+},2500);
+
+}
+
+/* 🎰 الدراع */
+
+document.addEventListener("click",function(e){
+
+if(e.target.id==="handle"){
+
+let handle=document.getElementById("handle");
+
+handle.classList.add("pull");
+
+let screen=document.getElementById("dateText");
+
+let dates=[
+"25",
+"25 / 5",
+"25 / 5 / 2006",
+"25 مايو 2006 ❤️"
+];
+
+let i=0;
+
+let spin=setInterval(()=>{
+
+screen.innerHTML=dates[i];
+
+i++;
+
+if(i>=dates.length){
+
+clearInterval(spin);
+
+setTimeout(()=>{
+startCount();
+},2000);
+
+}
+
+},700);
+
+}
+
+});
+
+/* 🔢 العد */
+
+function startCount(){
+
+document.getElementById("slotScene")
+.style.display="none";
+
+document.getElementById("countScene")
+.style.display="flex";
+
+let nums=["3","2","1"];
+
+let i=0;
+
+let big=document.getElementById("bigCount");
+
+function next(){
+
+if(i<nums.length){
+
+big.innerHTML=nums[i];
+
+big.style.transform="scale(0.5)";
+
+setTimeout(()=>{
+big.style.transform="scale(1)";
+},100);
+
+i++;
+
+setTimeout(next,1000);
+
+}else{
+
+big.innerHTML="❤️";
+
+startRain();
+
+setTimeout(()=>{
+
+document.getElementById("intro")
+.style.display="none";
+
+document.querySelectorAll(".page")
+.forEach(e=>e.classList.remove("active"));
+
+document.getElementById("lock")
+.classList.add("active");
+
+document.getElementById("lock")
+.style.display="flex";
+
+},4000);
+
+}
+
+}
+
+next();
+
+}
+
+/* 🌧️ المطر */
+
+function startRain(){
+
+const text="HZHHZZHZHZZHHZHZZH";
+
+setInterval(()=>{
+
+let span=document.createElement("div");
+
+span.className="rain";
+
+span.innerHTML=
+text[Math.floor(Math.random()*text.length)];
+
+span.style.left=Math.random()*100+"vw";
+
+span.style.animationDuration=
+(2+Math.random()*3)+"s";
+
+document.getElementById("rainContainer")
+.appendChild(span);
+
+setTimeout(()=>{
+span.remove();
+},5000);
+
+},80);
+
+}
+
+</script>
+
+</body>
+</html>
